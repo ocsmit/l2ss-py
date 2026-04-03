@@ -21,7 +21,10 @@ jobs:
       - name: Install l2ss-py
         run: poetry install -E harmony
 
-      - name: Lint
+      - name: flake8
         run: |
           poetry run flake8 podaac
+
+      - name: pylint
+        run: |
           poetry run pylint podaac

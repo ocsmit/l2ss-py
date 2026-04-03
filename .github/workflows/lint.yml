@@ -1,0 +1,27 @@
+name: Source Linting
+on: [push, pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        uses: abatilo/actions-poetry@v4
+        with:
+          poetry-version: 2.1.3
+
+      - name: Install l2ss-py
+        run: poetry install -E harmony
+
+      - name: Lint
+        run: |
+          poetry run flake8 podaac
+          poetry run pylint podaac
